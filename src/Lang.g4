@@ -1,20 +1,5 @@
 grammar Lang;
 
-//mots clés du langage
-tokens {
-	COMPIL : 'compil';
-	START : 'start';
-	IF : 'if';
-	THEN : 'then';
-	ELSE : 'else' ;
-	DO : 'do';
-	WHILE : 'while';
-	SCAN :  'scanCompil';
-	PRINT :  'printCompil';
-	}
-
-//Grammaire syntaxique:
-
 body :  COMPIL PROGRAME '('')'
         '{'
         declaration
@@ -22,9 +7,9 @@ body :  COMPIL PROGRAME '('')'
         instructions
         '}';
 
-declaration : type variable ';'| ;
+declaration : type variable ';';
 
-type : 'intcompil' | 'floatcompil' | 'stringcompil' ;
+type : INTC | FLOATC | STRINGC ;
 
 variable : ID | ID ',' variable ;
 
@@ -42,13 +27,13 @@ operation : values operator values ;
 
 values : ID | value ;
 
-value : int | float ;
+value : INT | FLOAT ;
 
-operator : plus | minus | mul | div ;
+operator : PLUS | MINUS | MUL | DIV ;
 
 read : SCAN '(' variable ')' ';' ;
 
-write : PRINT '(' '"' (str|display )'"' ')' ';' | PRINT '(' ID ')' ';' ;
+write : PRINT '(' '"' (STR|DISPLAY )'"' ')' ';' | PRINT '(' ID ')' ';' ;
 
 ifstat : IF '(' condition ')' THEN '{'
             instructions
@@ -69,11 +54,23 @@ compare : BIGER | LOWER | EQUAL | NOTEQUAL ;
 
 
 // Règles lexicales:
-
+//mots clés du langage
+COMPIL : 'compil';
+START : 'start';
+IF : 'if';
+THEN : 'then';
+ELSE : 'else' ;
+DO : 'do';
+WHILE : 'while';
+SCAN :  'scanCompil';
+PRINT :  'printCompil';
+INTC : 'intCompil' ;
+FLOATC : 'floatCompil' ;
+STRINGC : 'stringCompil' ;
 PROGRAME : [A-Z]+[a-zA-Z0-9_]* ;
 ID : [a-zA-Z]+[a-zA-Z0-9_]* ;
-INT :  '0'|[+-]?[1-9][0-9]* ;
-FLOAT : '0'|[+-]?[1-9][0-9]*('.'[0-9]*) ;
+INT : [0-9]+ ;
+FLOAT : [+-]?[0-9]+('.'[0-9]+) ;
 PLUS : '+' ;
 MINUS : '-' ;
 MUL : '*';
@@ -82,7 +79,7 @@ BIGER : '>';
 LOWER : '<' ;
 EQUAL : '==' ;
 NOTEQUAL : '!=' ;
-DISPLAY : [a-zA-Z0-9_]* ;
+DISPLAY : [a-zA-Z0-9_]+ ;
 STR : '"'(~["]|'\\"')*'"' ;
 COMMENTS : '/*' .*? '*/' -> channel(HIDDEN) ;
 COMMENT : '//' .*?  -> channel(HIDDEN) ;
