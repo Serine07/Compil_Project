@@ -7,7 +7,7 @@ body :  COMPIL PROGRAME '('')'
         instructions
         '}';
 
-declaration : type variable ';';
+declaration : type variable ';' | ;
 
 type : INTC | FLOATC | STRINGC ;
 
