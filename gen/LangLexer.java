@@ -205,8 +205,8 @@ public class LangLexer extends Lexer {
 		"\u010d\u0110\3\2\2\2\u010e\u010f\3\2\2\2\u010e\u010c\3\2\2\2\u010f\u0111"+
 		"\3\2\2\2\u0110\u010e\3\2\2\2\u0111\u0112\7\f\2\2\u0112\u0113\3\2\2\2\u0113"+
 		"\u0114\b#\2\2\u0114F\3\2\2\2\u0115\u0116\t\b\2\2\u0116\u0117\3\2\2\2\u0117"+
-		"\u0118\b$\3\2\u0118H\3\2\2\2\17\2\u00b7\u00bc\u00c2\u00c7\u00cd\u00d0"+
-		"\u00d5\u00db\u00f3\u00f5\u0100\u010e\4\2\3\2\b\2\2";
+		"\u0118\b$\2\2\u0118H\3\2\2\2\17\2\u00b7\u00bc\u00c2\u00c7\u00cd\u00d0"+
+		"\u00d5\u00db\u00f3\u00f5\u0100\u010e\3\b\2\2";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

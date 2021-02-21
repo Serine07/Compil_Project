@@ -80,6 +80,6 @@ LOWER : '<' ;
 EQUAL : '==' ;
 NOTEQUAL : '!=' ;
 DISPLAY : '"'(~["]|'\\"')*'"' ;
-COMMENTS : '/*' .*? '*/' -> channel(HIDDEN) ;
-COMMENT : '//' .*? '\n' -> channel(HIDDEN) ;
+COMMENTS : '/*' .*? '*/' -> skip ;
+COMMENT : '//' .*? '\n' -> skip ;
 WS : [ \t\n\r] -> skip;
