@@ -33,7 +33,7 @@ operator : PLUS | MINUS | MUL | DIV ;
 
 read : SCAN '(' variable ')' ';' ;
 
-write : PRINT '(' '"' (STR|DISPLAY )'"' ')' ';' | PRINT '(' ID ')' ';' ;
+write : PRINT '(' DISPLAY ')' ';' | PRINT '(' ID ')' ';' ;
 
 ifstat : IF '(' condition ')' THEN '{'
             instructions
@@ -79,8 +79,7 @@ BIGER : '>';
 LOWER : '<' ;
 EQUAL : '==' ;
 NOTEQUAL : '!=' ;
-DISPLAY : [a-zA-Z0-9_]+ ;
-STR : '"'(~["]|'\\"')*'"' ;
+DISPLAY : '"'(~["]|'\\"')*'"' ;
 COMMENTS : '/*' .*? '*/' -> channel(HIDDEN) ;
-COMMENT : '//' .*?  -> channel(HIDDEN) ;
+COMMENT : '//' .*? '\n' -> channel(HIDDEN) ;
 WS : [ \t\n\r] -> skip;
