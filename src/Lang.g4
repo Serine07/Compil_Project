@@ -4,7 +4,7 @@ body :  COMPIL PROGRAME '('')'
         '{'
         declaration
         START
-        instructions
+        inst
         '}';
 
 declaration : type variable ';' | ;
@@ -13,7 +13,9 @@ type : INTC | FLOATC | STRINGC ;
 
 variable : ID | ID ',' variable ;
 
-instructions : instruction instructions | instruction |  ;
+inst : instructions | ;
+
+instructions : instruction instructions | instruction ;
 
 instruction : assignmant | read | write | ifstat | dowhilestat ;
 
@@ -21,31 +23,36 @@ assignmant : ID '=' values ';' | ID '=' expretions ';' ;
 
 expretions : expretion expretions | expretion ;
 
-expretion : operation | operation operator expretion ;
+expretion : operation
+            | operation DIV expretion
+            | operation MUL expretion
+            | operation PLUS expretion
+            | operation MINUS expretion ;
 
-operation : values operator values ;
+operation : values DIV values
+            | values MUL values
+            | values PLUS values
+            | values MINUS values ;
 
 values : ID | value ;
 
 value : INT | FLOAT ;
-
-operator : PLUS | MINUS | MUL | DIV ;
 
 read : SCAN '(' variable ')' ';' ;
 
 write : PRINT '(' DISPLAY ')' ';' | PRINT '(' ID ')' ';' ;
 
 ifstat : IF '(' condition ')' THEN '{'
-            instructions
+            inst
             '}' ELSE '{'
-            instructions
+            inst
             '}' |
             IF '(' condition ')' THEN '{'
-             instructions
+             inst
              '}';
 
 dowhilestat : DO '{'
-               instructions
+               inst
                '}' WHILE '(' condition ')' ;
 
 condition : values compare values ;

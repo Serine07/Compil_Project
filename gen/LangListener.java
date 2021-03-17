@@ -1,4 +1,4 @@
-// Generated from C:/Users/HP/IdeaProjects/ProjectCompil/src\Lang.g4 by ANTLR 4.9.1
+// Generated from C:/Users/HP/IdeaProjects/Compil_Project/src\Lang.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -46,6 +46,16 @@ public interface LangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitVariable(LangParser.VariableContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LangParser#inst}.
+	 * @param ctx the parse tree
+	 */
+	void enterInst(LangParser.InstContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#inst}.
+	 * @param ctx the parse tree
+	 */
+	void exitInst(LangParser.InstContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LangParser#instructions}.
 	 * @param ctx the parse tree
@@ -126,16 +136,6 @@ public interface LangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitValue(LangParser.ValueContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LangParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void enterOperator(LangParser.OperatorContext ctx);
-	/**
-	 * Exit a parse tree produced by {@link LangParser#operator}.
-	 * @param ctx the parse tree
-	 */
-	void exitOperator(LangParser.OperatorContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LangParser#read}.
 	 * @param ctx the parse tree

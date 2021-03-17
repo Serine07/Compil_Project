@@ -1,4 +1,4 @@
-// Generated from C:/Users/HP/IdeaProjects/ProjectCompil/src\Lang.g4 by ANTLR 4.9.1
+// Generated from C:/Users/HP/IdeaProjects/Compil_Project/src\Lang.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -33,6 +33,12 @@ public interface LangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitVariable(LangParser.VariableContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LangParser#inst}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitInst(LangParser.InstContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LangParser#instructions}.
 	 * @param ctx the parse tree
@@ -81,12 +87,6 @@ public interface LangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitValue(LangParser.ValueContext ctx);
-	/**
-	 * Visit a parse tree produced by {@link LangParser#operator}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitOperator(LangParser.OperatorContext ctx);
 	/**
 	 * Visit a parse tree produced by {@link LangParser#read}.
 	 * @param ctx the parse tree
