@@ -17,7 +17,7 @@ compil Prog()
     } while (x < 0)
 
     printCompil("hello");
-
+        printCompil(x);
         /*gjgjhg
 
         jgjhg
