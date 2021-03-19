@@ -2,14 +2,20 @@ grammar Lang;
 
 body :  COMPIL PROGRAME '('')'
         '{'
-        declaration
+        dec
         START
         inst
         '}';
 
-declaration : type variable ';' | ;
+dec : declarations | ;
+
+declarations : declaration declarations | declaration ;
+
+declaration : type variable ';';
 
 type : INTC | FLOATC | STRINGC ;
+
+identifier : ID ;
 
 variable : ID | ID ',' variable ;
 
@@ -17,9 +23,9 @@ inst : instructions | ;
 
 instructions : instruction instructions | instruction ;
 
-instruction : assignmant | read | write | ifstat | dowhilestat ;
+instruction : assignmant ';' | read ';' | write ';' | ifstat | dowhilestat ;
 
-assignmant : ID '=' values ';' | ID '=' expretions ';' ;
+/*assignmant : ID '=' value ';' | ID '=' expretions ';' ;
 
 expretions : expretion expretions | expretion ;
 
@@ -29,18 +35,34 @@ expretion : operation
             | operation PLUS expretion
             | operation MINUS expretion ;
 
-operation : values DIV values
-            | values MUL values
-            | values PLUS values
-            | values MINUS values ;
+operation : value DIV value
+            | value MUL value
+            | value PLUS value
+            | value MINUS value ;
 
-values : ID | value ;
+value : ID | INT | FLOAT ;*/
 
-value : INT | FLOAT ;
+assignmant:    identifier '=' expression;
 
-read : SCAN '(' variable ')' ';' ;
 
-write : PRINT '(' DISPLAY ')' ';' | PRINT '(' ID ')' ';' ;
+expression : expression pm expression1 | expression1;
+
+expression1 : expression1 md expression2 | expression2;
+
+pm : (PLUS|MINUS) ;
+md : (MUL|DIV) ;
+
+expression2 : identifier | '(' expression ')' | value ;
+
+
+value :     INT
+      |     FLOAT
+      ;
+
+
+read : SCAN '(' variable ')'  ;
+
+write : PRINT '(' DISPLAY ')'  | PRINT '(' identifier ')'  ;
 
 ifstat : IF '(' condition ')' THEN '{'
             inst
@@ -55,9 +77,11 @@ dowhilestat : DO '{'
                inst
                '}' WHILE '(' condition ')' ;
 
-condition : values compare values ;
+condition : expression compare expression ;
 
 compare : BIGER | LOWER | EQUAL | NOTEQUAL ;
+
+
 
 
 // Règles lexicales:

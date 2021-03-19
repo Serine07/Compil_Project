@@ -17,6 +17,26 @@ public interface LangListener extends ParseTreeListener {
 	 */
 	void exitBody(LangParser.BodyContext ctx);
 	/**
+	 * Enter a parse tree produced by {@link LangParser#dec}.
+	 * @param ctx the parse tree
+	 */
+	void enterDec(LangParser.DecContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#dec}.
+	 * @param ctx the parse tree
+	 */
+	void exitDec(LangParser.DecContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LangParser#declarations}.
+	 * @param ctx the parse tree
+	 */
+	void enterDeclarations(LangParser.DeclarationsContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#declarations}.
+	 * @param ctx the parse tree
+	 */
+	void exitDeclarations(LangParser.DeclarationsContext ctx);
+	/**
 	 * Enter a parse tree produced by {@link LangParser#declaration}.
 	 * @param ctx the parse tree
 	 */
@@ -36,6 +56,16 @@ public interface LangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitType(LangParser.TypeContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LangParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void enterIdentifier(LangParser.IdentifierContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#identifier}.
+	 * @param ctx the parse tree
+	 */
+	void exitIdentifier(LangParser.IdentifierContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LangParser#variable}.
 	 * @param ctx the parse tree
@@ -87,45 +117,55 @@ public interface LangListener extends ParseTreeListener {
 	 */
 	void exitAssignmant(LangParser.AssignmantContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LangParser#expretions}.
+	 * Enter a parse tree produced by {@link LangParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpretions(LangParser.ExpretionsContext ctx);
+	void enterExpression(LangParser.ExpressionContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LangParser#expretions}.
+	 * Exit a parse tree produced by {@link LangParser#expression}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpretions(LangParser.ExpretionsContext ctx);
+	void exitExpression(LangParser.ExpressionContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LangParser#expretion}.
+	 * Enter a parse tree produced by {@link LangParser#expression1}.
 	 * @param ctx the parse tree
 	 */
-	void enterExpretion(LangParser.ExpretionContext ctx);
+	void enterExpression1(LangParser.Expression1Context ctx);
 	/**
-	 * Exit a parse tree produced by {@link LangParser#expretion}.
+	 * Exit a parse tree produced by {@link LangParser#expression1}.
 	 * @param ctx the parse tree
 	 */
-	void exitExpretion(LangParser.ExpretionContext ctx);
+	void exitExpression1(LangParser.Expression1Context ctx);
 	/**
-	 * Enter a parse tree produced by {@link LangParser#operation}.
+	 * Enter a parse tree produced by {@link LangParser#pm}.
 	 * @param ctx the parse tree
 	 */
-	void enterOperation(LangParser.OperationContext ctx);
+	void enterPm(LangParser.PmContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LangParser#operation}.
+	 * Exit a parse tree produced by {@link LangParser#pm}.
 	 * @param ctx the parse tree
 	 */
-	void exitOperation(LangParser.OperationContext ctx);
+	void exitPm(LangParser.PmContext ctx);
 	/**
-	 * Enter a parse tree produced by {@link LangParser#values}.
+	 * Enter a parse tree produced by {@link LangParser#md}.
 	 * @param ctx the parse tree
 	 */
-	void enterValues(LangParser.ValuesContext ctx);
+	void enterMd(LangParser.MdContext ctx);
 	/**
-	 * Exit a parse tree produced by {@link LangParser#values}.
+	 * Exit a parse tree produced by {@link LangParser#md}.
 	 * @param ctx the parse tree
 	 */
-	void exitValues(LangParser.ValuesContext ctx);
+	void exitMd(LangParser.MdContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LangParser#expression2}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression2(LangParser.Expression2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#expression2}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression2(LangParser.Expression2Context ctx);
 	/**
 	 * Enter a parse tree produced by {@link LangParser#value}.
 	 * @param ctx the parse tree

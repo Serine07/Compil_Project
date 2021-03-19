@@ -1,16 +1,12 @@
-import java.util.ArrayList;
+import java.util.HashMap;
 
 public class SymbolTable {
 
-    public ArrayList<Element> ST = new ArrayList<Element>();
+    public HashMap<String,Element> ST = new HashMap<String,Element>();
 
     public Element getElement(String name) {
 
-        for (int i = 0; i < ST.size(); i++) {
-            if (ST.get(i).name.compareTo(name) == 0)
-                return ST.get(i);
-        }
-        return null;
+        return this.ST.get(name);
     }
 
     public boolean findElement(String name){
@@ -18,22 +14,22 @@ public class SymbolTable {
         return getElement(name) != null;
     }
 
-    public void addElement(Element e){
-        ST.add(e);
+    public void addElement(String name,Element e){
+        ST.put(name,e);
     }
 
     public void deleteElement(String name){
-        for (int i=0; i<ST.size(); i++){
-            if(ST.get(i).name.compareTo(name)==0){
-                deleteE(ST.get(i));
-                return;
-            }
-        }
+        ST.remove(name);
     }
 
-    public void deleteE(Element e){
+    public void display() {
+        System.out.println("Our symbols table : ");
+        System.out.println("\n********************************************************");
 
-        ST.remove(e);
+        for (String name : ST.keySet()) {
+            System.out.println("key: " + name + " value: " + ST.get(name).toString());
+        }
+        System.out.println("\n********************************************************");
     }
 
 

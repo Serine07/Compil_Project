@@ -1,19 +1,22 @@
 public class Element {
 
-    String name, type, value;
-    boolean declared;
+    String  value;
+    int type, declared;
 
-    public Element(String name, String type, String value, boolean declared) {
-        this.name=name;
+    public Element( int type, String value, int declared) {
         this.type=type;
         this.value=value;
+        this.declared=declared;
+    }
+
+    public Element( int declared, int type) {
+        this.type=type;
         this.declared=declared;
     }
 
     @Override
     public String toString() {
         return "Element{" +
-                "name='" + name + '\'' +
                 ", type='" + type + '\'' +
                 ", value='" + value + '\'' +
                 ", declared=" + declared +
