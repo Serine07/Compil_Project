@@ -1,4 +1,3 @@
-
 import java.util.ArrayList;
 
 public class Quads {
@@ -18,6 +17,11 @@ public class Quads {
     public Quadruple getQuad(int index)
     {
         return Quads.get(index);
+    }
+
+    public int size()
+    {
+        return Quads.size();
     }
 
 }
