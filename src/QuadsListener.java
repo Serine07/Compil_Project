@@ -14,7 +14,7 @@ public class QuadsListener extends LangBaseListener  {
 
     @Override
     public void exitBody(LangParser.BodyContext ctx) {
-        super.exitBody(ctx);
+        quadsTable.addQuad("END","","","");
     }
 
     @Override
