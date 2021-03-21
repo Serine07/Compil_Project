@@ -1,4 +1,3 @@
-
 public class Quadruple {
 
     String [] Quadruple = new String[4];
@@ -21,4 +20,9 @@ public class Quadruple {
         Quadruple[index] = s;
     }
 
+    @Override
+    public String toString()
+    {
+        return "("+Quadruple[0]+","+Quadruple[1]+","+Quadruple[2]+","+Quadruple[3]+")";
+    }
 }
