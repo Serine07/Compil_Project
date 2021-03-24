@@ -9,11 +9,16 @@ public class QuadsListener extends LangBaseListener  {
     private Quads quadsTable = new Quads();
     private int comptTemp = 0;  //pour compter les temporaires
     private LinkedList<String> stack = new LinkedList<>();  // Contient les temporaires
-
-    // Constructeur QuadsListener
+    private ArrayList<String> errors = new ArrayList<>();
+    
+    public QuadsListener(ArrayList<String> errors) {
+        this.errors = errors;
+    }
 
     @Override
     public void exitBody(LangParser.BodyContext ctx) {
+        if(errors.size()>0)
+            return;
         quadsTable.addQuad("END","","","");
     }
 
