@@ -1,7 +1,8 @@
 import java.util.LinkedList;
+import java.util.ArrayList;
 
-import org.antlr.v4.runtime.ParserRuleContext;
-import org.antlr.v4.runtime.tree.TerminalNode;
+// import org.antlr.v4.runtime.ParserRuleContext;
+// import org.antlr.v4.runtime.tree.TerminalNode;
 
 
 public class QuadsListener extends LangBaseListener  {
@@ -10,7 +11,7 @@ public class QuadsListener extends LangBaseListener  {
     private int comptTemp = 0;  //pour compter les temporaires
     private LinkedList<String> stack = new LinkedList<>();  // Contient les temporaires
     private ArrayList<String> errors = new ArrayList<>();
-    
+
     public QuadsListener(ArrayList<String> errors) {
         this.errors = errors;
     }
