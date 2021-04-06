@@ -1,4 +1,4 @@
-// Generated from C:/Users/HP/IdeaProjects/Compil_Project/src\Lang.g4 by ANTLR 4.9.1
+// Generated from C:/Users/pc/IdeaProjects/ProjetCompil/src\Lang.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.tree.ParseTreeListener;
 
 /**
@@ -137,6 +137,16 @@ public interface LangListener extends ParseTreeListener {
 	 */
 	void exitExpression1(LangParser.Expression1Context ctx);
 	/**
+	 * Enter a parse tree produced by {@link LangParser#expression2}.
+	 * @param ctx the parse tree
+	 */
+	void enterExpression2(LangParser.Expression2Context ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#expression2}.
+	 * @param ctx the parse tree
+	 */
+	void exitExpression2(LangParser.Expression2Context ctx);
+	/**
 	 * Enter a parse tree produced by {@link LangParser#pm}.
 	 * @param ctx the parse tree
 	 */
@@ -156,16 +166,6 @@ public interface LangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitMd(LangParser.MdContext ctx);
-	/**
-	 * Enter a parse tree produced by {@link LangParser#expression2}.
-	 * @param ctx the parse tree
-	 */
-	void enterExpression2(LangParser.Expression2Context ctx);
-	/**
-	 * Exit a parse tree produced by {@link LangParser#expression2}.
-	 * @param ctx the parse tree
-	 */
-	void exitExpression2(LangParser.Expression2Context ctx);
 	/**
 	 * Enter a parse tree produced by {@link LangParser#value}.
 	 * @param ctx the parse tree
@@ -206,6 +206,16 @@ public interface LangListener extends ParseTreeListener {
 	 * @param ctx the parse tree
 	 */
 	void exitIfstat(LangParser.IfstatContext ctx);
+	/**
+	 * Enter a parse tree produced by {@link LangParser#el}.
+	 * @param ctx the parse tree
+	 */
+	void enterEl(LangParser.ElContext ctx);
+	/**
+	 * Exit a parse tree produced by {@link LangParser#el}.
+	 * @param ctx the parse tree
+	 */
+	void exitEl(LangParser.ElContext ctx);
 	/**
 	 * Enter a parse tree produced by {@link LangParser#dowhilestat}.
 	 * @param ctx the parse tree
