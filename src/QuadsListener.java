@@ -97,17 +97,17 @@ public class QuadsListener extends LangBaseListener  {
         quadsTable.getQuad(Sauv_Cond).set(3, ""+Sauv_BR_Do);
     }
 
-    /*
     @Override
     public void exitRead(LangParser.ReadContext ctx) {
-        super.exitRead(ctx);
+        quadsTable.addQuad("READ", ctx.variable().getText() ,"","");
     }
 
     @Override
     public void exitWrite(LangParser.WriteContext ctx) {
-        super.exitWrite(ctx);
+        if (ctx.identifier() != null) {
+            quadsTable.addQuad("WRITE", ctx.identifier().getText(), "", "");
+        }
     }
-    */
     
     /* **
     @Override
