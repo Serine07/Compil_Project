@@ -13,15 +13,15 @@ public class LangMain {
             printUsage();
         }
 
-
         ArrayList<String> errors = new ArrayList<>();
 
         STListener stListener = new STListener(errors);
-
+        QuadsListener quadsListener = new QuadsListener(errors);
 
         ArrayList<LangBaseListener> routines = new ArrayList<>();
 
         routines.add(stListener);
+        routines.add(quadsListener);
 
         ErrorListener errorListener = new ErrorListener(errors);
 
@@ -32,6 +32,7 @@ public class LangMain {
         if (errors.isEmpty()) {
             System.out.println("No errors on our program!");
             stListener.getTable().display();
+            quadsListener.getQuadsTable().display();
         } else {
             System.err.println("Ouuuppsss our program compiled with some errors; take a look :");
             for (String error : errors)
@@ -48,4 +49,3 @@ public class LangMain {
 
 
 }
-
