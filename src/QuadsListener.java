@@ -7,13 +7,19 @@ import java.util.ArrayList;
 
 public class QuadsListener extends LangBaseListener  {
 
-    private Quads quadsTable = new Quads();
+    private Quads quadsTable ;
     private int comptTemp = 0;  //pour compter les temporaires
-    private LinkedList<String> stack = new LinkedList<>();  // Contient les temporaires
-    private ArrayList<String> errors = new ArrayList<>();
+    private LinkedList<String> stack ;  // Contient les temporaires
+    private ArrayList<String> errors ;
 
     public QuadsListener(ArrayList<String> errors) {
+        this.quadsTable = new Quads();
+        this.stack = new LinkedList<>();
         this.errors = errors;
+    }
+
+    public Quads getQuadsTable() {
+        return quadsTable;
     }
 
     @Override
@@ -31,23 +37,28 @@ public class QuadsListener extends LangBaseListener  {
 
     @Override
     public void exitExpression(LangParser.ExpressionContext ctx) {
-        String t1 = stack.removeLast();
-        String t2 = stack.removeLast();
-        comptTemp ++;
-        String tmp = "tmp"+comptTemp;
-        quadsTable.addQuad(ctx.pm().getText(),t1,t2,tmp);
-        stack.add(tmp);
+        if (ctx.expression() != null) {
+            String t1 = stack.removeLast();
+            String t2 = stack.removeLast();
+            comptTemp++;
+            String tmp = "tmp" + comptTemp;
+            quadsTable.addQuad(ctx.pm().getText(), t1, t2, tmp);
+            stack.add(tmp);
+        }
     }
 
     @Override
     public void exitExpression1(LangParser.Expression1Context ctx) {
-        String t1 = stack.removeLast();
-        String t2 = stack.removeLast();
-        comptTemp ++;
-        String tmp = "tmp"+comptTemp;
-        quadsTable.addQuad(ctx.md().getText(),t1,t2,tmp);
-        stack.add(tmp);
+        if (ctx.expression1() != null) {
+            String t1 = stack.removeLast();
+            String t2 = stack.removeLast();
+            comptTemp++;
+            String tmp = "tmp" + comptTemp;
+            quadsTable.addQuad(ctx.md().getText(), t1, t2, tmp);
+            stack.add(tmp);
+        }
     }
+
 
     @Override
     public void exitExpression2(LangParser.Expression2Context ctx) {
@@ -86,8 +97,18 @@ public class QuadsListener extends LangBaseListener  {
         quadsTable.getQuad(Sauv_Cond).set(3, ""+Sauv_BR_Do);
     }
 
+    /*
+    @Override
+    public void exitRead(LangParser.ReadContext ctx) {
+        super.exitRead(ctx);
+    }
 
-
+    @Override
+    public void exitWrite(LangParser.WriteContext ctx) {
+        super.exitWrite(ctx);
+    }
+    */
+    
     /* **
     @Override
     public void exitEveryRule(ParserRuleContext ctx) {

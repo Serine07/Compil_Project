@@ -2,7 +2,11 @@ import java.util.ArrayList;
 
 public class Quads {
 
-    ArrayList<Quadruple> Quads = new ArrayList<Quadruple>();
+    ArrayList<Quadruple> Quads ;
+
+    public Quads() {
+        this.Quads = new ArrayList<Quadruple>();
+    }
 
     /*Ajouter un quadruplé à la table*/
 
@@ -23,5 +27,17 @@ public class Quads {
     {
         return Quads.size();
     }
+
+
+    public void display() {
+        System.out.println("Les quadruplés : ");
+        System.out.println("\n********************************************************");
+
+        for (Quadruple quad : Quads ) {
+            System.out.println(quad.toString());
+        }
+        System.out.println("\n********************************************************");
+    }
+
 
 }
