@@ -90,7 +90,16 @@ public class STListener extends LangBaseListener{
 
         if (exp.matches("[0-9]+")){
             ST.SetValue(ctx.identifier().ID().getText(),ctx.expression().getText());
+        }else{
+            HashMap<String,Element> s = new HashMap<String,Element>();
+            s=ST.getST();
+           /*for (String i : s.keySet()) {
+                System.out.println("key: " + i + " value: " + s.get(i));
+            }*/
+
+            System.out.println("key: " + s.keySet() + " value: " + s.get(s.keySet()));
         }
+
 
 
         if(!CompatibleTypes(typeExp, typeIdf))
