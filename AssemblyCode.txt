@@ -1,0 +1,45 @@
+Assembly Code 
+START 
+	MOV AX, 1
+	MOV 17, AX
+	STORE 17
+	MOV AX, x
+	SUB 1
+	ADD 5
+	MOV y, AX
+	MOV AX, 1
+	MOV n, AX
+	STORE n
+	MOV AX, 8
+	ADD 9
+	STORE tmp3
+	MOV AX, (8+9)
+	DIV 7
+	MOV n, AX
+	STORE n
+	MOV AX, 5.3
+	SUB 1.25
+	MOV j, AX
+	STORE j
+	MOV AX, 8
+	ADD 9
+	STORE tmp6
+	MOV AX, x
+	ADD 1
+	DIV (x+1)
+	MOV l, AX
+	MOV AX, x
+	CMP AX, 0
+	JGE EtiqAdr
+	STORE l
+	MOV AX, x
+	ADD 1
+	MOV x, AX
+	ADD 1
+	MOV x, AX
+	MOV AX, x
+	CMP AX, 0
+	JGE EtiqAdr18
+	OUTPUT x
+	INPUT x
+END. 
