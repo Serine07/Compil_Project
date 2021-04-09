@@ -1,11 +1,13 @@
-import java.util.ArrayList;
+import java.util.*;
 
 import org.antlr.v4.runtime.ParserRuleContext;
 import org.antlr.v4.runtime.tree.TerminalNode;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptEngine;
+import javax.script.ScriptException;
+
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.LinkedList;
 
 public class STListener extends LangBaseListener{
 
@@ -78,25 +80,78 @@ public class STListener extends LangBaseListener{
     @Override
     public void exitAssignmant(LangParser.AssignmantContext ctx) {
         int typeExp = getCtxType(ctx.expression());
+
         //System.out.println(ctx.identifier().ID().getText()+" : "+ctx.expression().getText());
-        String exp=ctx.expression().getText();
-        exp=exp.replaceAll("\\s","");
+        String exp = ctx.expression().getText();
+        exp = exp.replaceAll("\\s", "");
         int typeIdf = ST.getElement(ctx.identifier().ID().getText()).type;
 
 
-        if(exp.contains("/0")){
+        if (exp.contains("/0")) {
             errors.add(lineColumnOf(ctx.identifier().ID()) + "division par 0 ");
         }
 
-        if (exp.matches("[0-9]+")){
-            ST.SetValue(ctx.identifier().ID().getText(),ctx.expression().getText());
+        if (exp.matches("[0-9]+")) {
+
+            ST.SetValue(ctx.identifier().ID().getText(), ctx.expression().getText());
+        } else {
+            String e1 = exp.replaceAll("[+*-/]", "");
+            e1 = e1.replaceAll("\\s", "");
+            if (e1.matches("[0-9]+")) {
+                try {
+                    ScriptEngineManager mgr = new ScriptEngineManager();
+                    ScriptEngine engine = mgr.getEngineByName("JavaScript");
+                    String result=String.valueOf(engine.eval(exp));
+                    if(result.equals("Infinity")){
+                        errors.add(lineColumnOf(ctx.identifier().ID()) + "division par 0 ");
+                    }else{
+                        if(typeIdf==1){String beforeFirstDot = result.split("\\.")[0];
+                            ST.SetValue(ctx.identifier().ID().getText(), beforeFirstDot);
+                        }else{
+                            ST.SetValue(ctx.identifier().ID().getText(), result);
+                        }
+                    }
+
+
+                } catch (ScriptException e) {
+                    System.err.println("Error result: 0");
+                }
+            } else {
+
+                HashMap<String, Element> s = new HashMap<String, Element>();
+                s = ST.getST();
+                Set<String> l = s.keySet();
+
+
+                for (String i : l) {
+
+                    if (exp.contains(i)) {
+                        if (ST.getElement(i).getValue() == null) {
+                            errors.add(lineColumnOf(ctx.identifier().ID()) + "IDF : " + i + " est non initialisé.");
+                        } else {
+                            //System.err.println(ST.getElement(i).getValue()!= null);
+                            exp = exp.replaceAll(i, ST.getElement(i).getValue());
+                            try {
+                                ScriptEngineManager mgr = new ScriptEngineManager();
+                                ScriptEngine engine = mgr.getEngineByName("JavaScript");
+                                if(String.valueOf(engine.eval(exp)).equals("Infinity")){
+                                    errors.add(lineColumnOf(ctx.identifier().ID()) + "division par 0 ");
+                                }else{
+                                    if(typeIdf==1){String beforeFirstDot = String.valueOf(engine.eval(exp)).split("\\.")[0];
+                                    ST.SetValue(ctx.identifier().ID().getText(), beforeFirstDot);}}
+                            } catch (ScriptException e) {
+                                System.err.println("Error result: 0");
+                            }
+                        }
+                    }
+                }
+            }
         }
 
+        if(!CompatibleTypes(typeExp, typeIdf)) {
 
-
-        if(!CompatibleTypes(typeExp, typeIdf))
-            errors.add(lineColumnOf(ctx.identifier().ID()) + "incompatible types in affectation " + ctx.getText() + " : " + typeExp + " avec " + typeIdf);
-        clear();
+            errors.add(lineColumnOf(ctx.identifier().ID()) + "incompatible types : " + ctx.getText() );
+        }clear();
     }
 
     @Override
@@ -120,8 +175,12 @@ public class STListener extends LangBaseListener{
                 addTypeToCtx(ctx,getTypeOfResult(getCtxType(ctx.expression1()),getCtxType(ctx.expression())));
             else {
                 addTypeToCtx(ctx, 0); // type 0 will always generate error
+                String t1="";
+                if(getCtxType(ctx.expression1())==1){t1="Integer";}else{if(getCtxType(ctx.expression1())==2){t1="Float";}else{if(getCtxType(ctx.expression1())==3){t1="String";}}}
+                String t2="";
+                if(getCtxType(ctx.expression())==1){t2="Integer";}else{if(getCtxType(ctx.expression())==2){t2="Float";}else{if(getCtxType(ctx.expression())==3){t2="String";}}}
                 System.out.println("ERROR : incompatible type between " + ctx.expression1().getText() + " and " + ctx.expression().getText());
-                System.out.println("we have : " + ctx.expression1().getText() + " type: " + getCtxType(ctx.expression1()) + " and " + ctx.expression().getText() + " type: " + getCtxType(ctx.expression()));
+                System.out.println("we have : " + ctx.expression1().getText() + " type: " + t1 + " and " + ctx.expression().getText() + " type: " + t2);
             }
 
         }
@@ -137,8 +196,12 @@ public class STListener extends LangBaseListener{
                 addTypeToCtx(ctx,getTypeOfResult(getCtxType(ctx.expression1()),getCtxType(ctx.expression2())));
             else {
                 addTypeToCtx(ctx, 0); // type 0 will always generate error
+                String t1="";
+                if(getCtxType(ctx.expression1())==1){t1="Integer";}else{if(getCtxType(ctx.expression1())==2){t1="Float";}else{if(getCtxType(ctx.expression1())==3){t1="String";}}}
+                String t2="";
+                if(getCtxType(ctx.expression2())==1){t2="Integer";}else{if(getCtxType(ctx.expression2())==2){t2="Float";}else{if(getCtxType(ctx.expression2())==3){t2="String";}}}
                 System.out.println("ERROR : incompatible type between " + ctx.expression1().getText() + " and " + ctx.expression2().getText());
-                System.out.println("We have : " + ctx.expression1().getText() + " type: " + getCtxType(ctx.expression1()) + " and " + ctx.expression2().getText() + " type: " + getCtxType(ctx.expression2()));
+                System.out.println("We have : " + ctx.expression1().getText() + " type: " + t1 + " and " + ctx.expression2().getText() + " type: " + t2);
             }
         }
     }
