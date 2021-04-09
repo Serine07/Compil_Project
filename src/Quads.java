@@ -31,12 +31,12 @@ public class Quads {
 
     public void display() {
         System.out.println("Les quadruplés : ");
-        System.out.println("\n********************************************************");
+        System.out.println("********************************************************");
 
         for (Quadruple quad : Quads ) {
             System.out.println(quad.toString());
         }
-        System.out.println("\n********************************************************");
+        System.out.println("********************************************************\n");
     }
 
 

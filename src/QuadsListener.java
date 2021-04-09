@@ -4,15 +4,6 @@ import java.util.ArrayList;
 // import org.antlr.v4.runtime.ParserRuleContext;
 // import org.antlr.v4.runtime.tree.TerminalNode;
 
-   /* public void Display(){
-        showText("generated quads: ",TextDisplayer.COMPILERTEXTS);
-        showText("******************************************************",TextDisplayer.COMPILERTEXTS);
-        showText("****************** "+this.quadsTable.size()+" ******************",TextDisplayer.COMPILERTEXTS);
-        for (int i = 0; i < this.quadsTable.size(); i++) {
-            showText(i + ": " + this.quadsTable.getQuad(i).toString(),TextDisplayer.COMPILERTEXTS);
-        }
-        showText("******************************************************",TextDisplayer.COMPILERTEXTS);
-    }*/
 
 public class QuadsListener extends LangBaseListener  {
 
@@ -30,27 +21,18 @@ public class QuadsListener extends LangBaseListener  {
     public Quads getQuadsTable() {
         return quadsTable;
     }
-    public QuadsListener() {
-
-    }
-
-    public Quads getQuads() {
-        return quadsTable;
-    }
 
     @Override
     public void exitBody(LangParser.BodyContext ctx) {
         if(errors.size()>0)
             return;
         quadsTable.addQuad("END","","","");
-        //showText("*********** hjbkjb ******* "+this.quadsTable.size()+" ********* uhou ********",TextDisplayer.COMPILERTEXTS);
-
     }
 
     @Override
     public void exitAssignmant(LangParser.AssignmantContext ctx) {
         String tmp = stack.removeLast();
-        quadsTable.addQuad("=",tmp,"",ctx.identifier().getText());
+        quadsTable.addQuad("=","",tmp,ctx.identifier().getText());
     }
 
     @Override
@@ -60,7 +42,7 @@ public class QuadsListener extends LangBaseListener  {
             String t2 = stack.removeLast();
             comptTemp++;
             String tmp = "tmp" + comptTemp;
-            quadsTable.addQuad(ctx.pm().getText(), t1, t2, tmp);
+            quadsTable.addQuad(ctx.pm().getText(), t2, t1, tmp);
             stack.add(tmp);
         }
     }
@@ -72,11 +54,10 @@ public class QuadsListener extends LangBaseListener  {
             String t2 = stack.removeLast();
             comptTemp++;
             String tmp = "tmp" + comptTemp;
-            quadsTable.addQuad(ctx.md().getText(), t1, t2, tmp);
+            quadsTable.addQuad(ctx.md().getText(), t2, t1, tmp);
             stack.add(tmp);
         }
     }
-
 
 
     @Override
@@ -89,7 +70,7 @@ public class QuadsListener extends LangBaseListener  {
     public void exitCondition(LangParser.ConditionContext ctx) {
         String t1 = stack.removeLast();
         String t2 = stack.removeLast();
-        Sauv_Cond = quadsTable.addQuad((ctx.compare().getText().compareTo(">") == 0)?"BLE":"BGE",t1,t2,"");
+        Sauv_Cond = quadsTable.addQuad((ctx.compare().getText().compareTo(">") == 0)?"BLE":"BGE",t2,t1,"");
     }
 
     int Sauv_BR;
@@ -116,6 +97,7 @@ public class QuadsListener extends LangBaseListener  {
         quadsTable.getQuad(Sauv_Cond).set(3, ""+Sauv_BR_Do);
     }
 
+
     @Override
     public void exitRead(LangParser.ReadContext ctx) {
         quadsTable.addQuad("READ", ctx.variable().getText() ,"","");
@@ -127,7 +109,8 @@ public class QuadsListener extends LangBaseListener  {
             quadsTable.addQuad("WRITE", ctx.identifier().getText(), "", "");
         }
     }
-    
+
+
     /* **
     @Override
     public void exitEveryRule(ParserRuleContext ctx) {

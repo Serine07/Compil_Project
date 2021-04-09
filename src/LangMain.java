@@ -31,8 +31,12 @@ public class LangMain {
 
         if (errors.isEmpty()) {
             System.out.println("No errors on our program!");
-            stListener.getTable().display();
-            quadsListener.getQuadsTable().display();
+            stListener.getTable().display();            // Afficher la table des Symboles
+            quadsListener.getQuadsTable().display();    // Afficher les quadruplés
+            Quads quadTable = quadsListener.getQuadsTable();
+            CodeGenerator CodeGen = new CodeGenerator(quadTable);
+            CodeGen.AssemblyGenerator();          // Générer le code objet (Assembleur)
+
         } else {
             System.err.println("Ouuuppsss our program compiled with some errors; take a look :");
             for (String error : errors)
