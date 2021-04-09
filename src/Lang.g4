@@ -7,91 +7,87 @@ body :  COMPIL PROGRAME '('')'
         inst
         '}';
 
-dec : declarations
-    |
-    ;
+dec : declarations | ;
 
-declarations : declaration declarations
-             | declaration
-             ;
+declarations : declaration declarations | declaration ;
 
-declaration : type variable ';'
-            ;
+declaration : type variable ';';
 
-type : INTC
-     | FLOATC
-     | STRINGC
-     ;
+type : INTC | FLOATC | STRINGC ;
 
 identifier : ID ;
 
-variable : ID
-         | ID ',' variable
-         ;
+variable : ID | ID ',' variable ;
 
-inst : instructions
-     |
-     ;
+inst : instructions | ;
 
-instructions : instruction instructions
-             | instruction
-             ;
+instructions : instruction instructions | instruction ;
 
-instruction : assignmant ';'
-            | read ';'
-            | write ';'
-            | ifstat
-            | dowhilestat
-            ;
+instruction : assignmant ';' | read ';' | write ';' | ifstat | dowhilestat ;
 
-assignmant: identifier '=' expression;
+/*assignmant : ID '=' value ';' | ID '=' expretions ';' ;
+
+expretions : expretion expretions | expretion ;
+
+expretion : operation
+            | operation DIV expretion
+            | operation MUL expretion
+            | operation PLUS expretion
+            | operation MINUS expretion ;
+
+operation : value DIV value
+            | value MUL value
+            | value PLUS value
+            | value MINUS value ;
+
+value : ID | INT | FLOAT ;*/
+
+assignmant:    identifier '=' expression;
 
 
-expression : expression pm expression1
-            | expression1
-            ;
+expression : expression pm expression1 | expression1;
 
-expression1 : expression1 md expression2
-            | expression2
-            ;
-
-expression2 : identifier
-            | '(' expression ')'
-            | value
-            ;
+expression1 : expression1 md expression2 | expression2;
 
 pm : (PLUS|MINUS) ;
 md : (MUL|DIV) ;
+
+expression2 : identifier | '(' expression ')' | value ;
+
 
 value :     INT
       |     FLOAT
       ;
 
 
-read : SCAN '(' variable ')'
-     ;
+read : SCAN '(' variable ')'  ;
 
-write : PRINT '(' DISPLAY ')'
-      | PRINT '(' identifier ')'
-      ;
+write : PRINT '(' DISPLAY ')'  | PRINT '(' identifier ')'  ;
 
+/*ifstat : IF '(' condition ')' THEN '{'
+            inst
+            '}' ELSE '{'
+            inst
+            '}' |
+            IF '(' condition ')' THEN '{'
+             inst
+             '}';
+*/
 ifstat : IF '(' condition ')' THEN '{' inst '}' el '{' inst '}'
        | IF '(' condition ')' THEN '{' inst '}'
        ;
 
 el : ELSE ;
-
 dowhilestat : DO '{'
                inst
                '}' WHILE '(' condition ')' ;
 
 condition : expression compare expression ;
 
-compare : BIGER
-        | LOWER
-        | EQUAL
-        | NOTEQUAL
-        ;
+compare : BIGER | LOWER | EQUAL | NOTEQUAL ;
+
+
+
 
 // Règles lexicales:
 //mots clés du langage

@@ -5,6 +5,7 @@ import org.antlr.v4.runtime.tree.TerminalNode;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedList;
 
 public class STListener extends LangBaseListener{
 
@@ -77,7 +78,21 @@ public class STListener extends LangBaseListener{
     @Override
     public void exitAssignmant(LangParser.AssignmantContext ctx) {
         int typeExp = getCtxType(ctx.expression());
+        //System.out.println(ctx.identifier().ID().getText()+" : "+ctx.expression().getText());
+        String exp=ctx.expression().getText();
+        exp=exp.replaceAll("\\s","");
         int typeIdf = ST.getElement(ctx.identifier().ID().getText()).type;
+
+
+        if(exp.contains("/0")){
+            errors.add(lineColumnOf(ctx.identifier().ID()) + "division par 0 ");
+        }
+
+        if (exp.matches("[0-9]+")){
+            ST.SetValue(ctx.identifier().ID().getText(),ctx.expression().getText());
+        }
+
+
         if(!CompatibleTypes(typeExp, typeIdf))
             errors.add(lineColumnOf(ctx.identifier().ID()) + "incompatible types in affectation " + ctx.getText() + " : " + typeExp + " avec " + typeIdf);
         clear();
@@ -129,33 +144,24 @@ public class STListener extends LangBaseListener{
 
     @Override public void exitExpression2(LangParser.Expression2Context ctx)
     {
+        String name="", v="";
+
         if(ctx.identifier() != null)
-            addTypeToCtx(ctx,ST.getElement(ctx.identifier().getText()).type);
+        {addTypeToCtx(ctx,ST.getElement(ctx.identifier().getText()).type);
+            name=ctx.identifier().getText();
+          }
         else if(ctx.expression() != null)
             addTypeToCtx(ctx,getCtxType(ctx.expression()));
-        else
+        else{
             addTypeToCtx(ctx,getCtxType(ctx.value()));
+
+            v=ctx.getText();
+        }
+
     }
 
 
-    /*@Override public void exitAssignmant(LangParser.AssignmantContext ctx)
-    {
-        if(!CompatibleTypes(getCtxType(ctx),ST.getElement(ctx.ID().getText()).type))
-            errors.add("incompatible types in affectation " + ctx.getText());
-        clear();
-    }*/
 
-
-   /* @Override
-    public void exitIdentifier(LangParser.IdentifierContext ctx) {
-        // check if ID has been declared
-        if(!ST.containsLigne(ctx.ID().getText()))
-        {
-            errors.add(lineColumnOf(ctx.ID()) + ctx.ID().getSymbol().getCharPositionInLine() + " variable : " + ctx.ID().getText() + " undeclared !!!");
-            ST.addElement(ctx.ID().getText(),new Element(UNDECLARED,INTcompil|FLOATcompil|STRINGcompil));
-            // adding non declared variable in order to not generate same error again
-        }
-    }*/
 
     /*************************************************************************************/
     /****************** somme methods helping on creating routines ***********************/
@@ -185,7 +191,12 @@ public class STListener extends LangBaseListener{
 
     private static int getTypeOfResult(int t1,int t2)
     {
-        return ((t1 & t2 & FLOATcompil) != 0)?FLOATcompil:INTcompil;
+        if((t1 & t2 & FLOATcompil) != 0){return  FLOATcompil;}
+        if((t1 & t2 & INTcompil) != 0){return  INTcompil;}
+        if((t1 & t2 & STRINGcompil) != 0){return  STRINGcompil;}
+        return 0;
+
+        //return ((t1 & t2 & FLOATcompil) != 0)?FLOATcompil:INTcompil;
     }
 
 

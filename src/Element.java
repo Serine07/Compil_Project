@@ -9,17 +9,31 @@ public class Element {
         this.declared=declared;
     }
 
-    public Element( int declared, int type) {
+    public Element( ) {
+    }
+
+    public void setValue(String value) {
+        this.value = value;
+    }
+
+    public Element(int declared, int type) {
         this.type=type;
         this.declared=declared;
     }
 
     @Override
     public String toString() {
+
+        String d="";
+        if(declared==1){d="yes";}else{d="no";}
+
+        String t="";
+        if(type==1){t="Integer";}else{if(type==2){t="Float";}else{if(type==3){t="String";}}}
+
         return "Element{" +
-                ", type='" + type + '\'' +
+                ", type='" + t + '\'' +
                 ", value='" + value + '\'' +
-                ", declared=" + declared +
+                ", declared=" + d +
                 '}';
     }
 }

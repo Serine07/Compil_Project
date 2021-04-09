@@ -25,4 +25,6 @@ public class Quadruple {
     {
         return "("+Quadruple[0]+","+Quadruple[1]+","+Quadruple[2]+","+Quadruple[3]+")";
     }
+
+
 }

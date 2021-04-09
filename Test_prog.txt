@@ -3,6 +3,7 @@ compil Prog()
     /* Declaration */
     intCompil x, y;
     floatCompil n, s;
+    stringCompil k;
 
     start
     x = 1;
@@ -22,5 +23,7 @@ compil Prog()
 
         jgjhg
         */
+
+        //hello
 
 }

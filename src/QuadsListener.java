@@ -4,6 +4,15 @@ import java.util.ArrayList;
 // import org.antlr.v4.runtime.ParserRuleContext;
 // import org.antlr.v4.runtime.tree.TerminalNode;
 
+   /* public void Display(){
+        showText("generated quads: ",TextDisplayer.COMPILERTEXTS);
+        showText("******************************************************",TextDisplayer.COMPILERTEXTS);
+        showText("****************** "+this.quadsTable.size()+" ******************",TextDisplayer.COMPILERTEXTS);
+        for (int i = 0; i < this.quadsTable.size(); i++) {
+            showText(i + ": " + this.quadsTable.getQuad(i).toString(),TextDisplayer.COMPILERTEXTS);
+        }
+        showText("******************************************************",TextDisplayer.COMPILERTEXTS);
+    }*/
 
 public class QuadsListener extends LangBaseListener  {
 
@@ -21,12 +30,21 @@ public class QuadsListener extends LangBaseListener  {
     public Quads getQuadsTable() {
         return quadsTable;
     }
+    public QuadsListener() {
+
+    }
+
+    public Quads getQuads() {
+        return quadsTable;
+    }
 
     @Override
     public void exitBody(LangParser.BodyContext ctx) {
         if(errors.size()>0)
             return;
         quadsTable.addQuad("END","","","");
+        //showText("*********** hjbkjb ******* "+this.quadsTable.size()+" ********* uhou ********",TextDisplayer.COMPILERTEXTS);
+
     }
 
     @Override
@@ -59,6 +77,10 @@ public class QuadsListener extends LangBaseListener  {
         }
     }
 
+    private void showText(String text, int typeOfText)
+    {
+        TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.QUADGEN);
+    }
 
     @Override
     public void exitExpression2(LangParser.Expression2Context ctx) {

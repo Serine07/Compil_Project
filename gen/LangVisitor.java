@@ -1,4 +1,4 @@
-// Generated from C:/Users/pc/IdeaProjects/ProjetCompil/src\Lang.g4 by ANTLR 4.9.1
+// Generated from C:/Users/HP/IdeaProjects/Compil_Project/src\Lang.g4 by ANTLR 4.9.1
 import org.antlr.v4.runtime.tree.ParseTreeVisitor;
 
 /**
@@ -88,12 +88,6 @@ public interface LangVisitor<T> extends ParseTreeVisitor<T> {
 	 */
 	T visitExpression1(LangParser.Expression1Context ctx);
 	/**
-	 * Visit a parse tree produced by {@link LangParser#expression2}.
-	 * @param ctx the parse tree
-	 * @return the visitor result
-	 */
-	T visitExpression2(LangParser.Expression2Context ctx);
-	/**
 	 * Visit a parse tree produced by {@link LangParser#pm}.
 	 * @param ctx the parse tree
 	 * @return the visitor result
@@ -105,6 +99,12 @@ public interface LangVisitor<T> extends ParseTreeVisitor<T> {
 	 * @return the visitor result
 	 */
 	T visitMd(LangParser.MdContext ctx);
+	/**
+	 * Visit a parse tree produced by {@link LangParser#expression2}.
+	 * @param ctx the parse tree
+	 * @return the visitor result
+	 */
+	T visitExpression2(LangParser.Expression2Context ctx);
 	/**
 	 * Visit a parse tree produced by {@link LangParser#value}.
 	 * @param ctx the parse tree
