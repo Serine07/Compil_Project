@@ -89,7 +89,7 @@ public class STListener extends LangBaseListener{
 
         if (exp.contains("/0")) {
             errors.add(lineColumnOf(ctx.identifier().ID()) + "division par 0 ");
-        }
+        }else{
 
         if (exp.matches("[0-9]+")) {
 
@@ -146,7 +146,7 @@ public class STListener extends LangBaseListener{
                     }
                 }
             }
-        }
+        }}
 
         if(!CompatibleTypes(typeExp, typeIdf)) {
 
