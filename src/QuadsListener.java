@@ -77,10 +77,7 @@ public class QuadsListener extends LangBaseListener  {
         }
     }
 
-    private void showText(String text, int typeOfText)
-    {
-        TextDisplayer.getInstance().showText(text,typeOfText,TextDisplayer.QUADGEN);
-    }
+
 
     @Override
     public void exitExpression2(LangParser.Expression2Context ctx) {
