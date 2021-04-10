@@ -1,10 +1,12 @@
 import java.io.*;
 import java.io.FileWriter;
+import java.util.ArrayList;
 
 public class CodeGenerator {
 
     Quads quadsTable ;
     String AX;
+    ArrayList<String> CodeAssembleur = new ArrayList<>();
 
     public CodeGenerator(Quads quadsTable) {
         this.quadsTable = quadsTable;
@@ -12,112 +14,89 @@ public class CodeGenerator {
 
     public void AssemblyGenerator() throws IOException {
 
-        File CodeFile = new File("AssemblyCode.txt");
-        FileWriter fwriter = new FileWriter(CodeFile);
-
-        fwriter.write("Assembly Code \n");
-        fwriter.write("START \n");
-
-        System.out.println("Assembly Code : ");
-        System.out.println("START");
+        CodeAssembleur.add("Code Assembleur : ");
+        CodeAssembleur.add("********************************************************");
+        CodeAssembleur.add("START");
 
         for (Quadruple quad : quadsTable.Quads ) {
 
             switch(quad.get(0)) {
                 case "=":
                     if (AX != quad.get(2)) {
-                        System.out.println("\tMOV AX, " + quad.get(2));
-                        fwriter.write("\tMOV AX, " + quad.get(2)+"\n");
+                        CodeAssembleur.add("\tMOV AX, " + quad.get(2));
                     }
-                    System.out.println("\tMOV "+quad.get(3)+", AX" );
-                    fwriter.write("\tMOV "+quad.get(3)+", AX\n" );
+                    CodeAssembleur.add("\tMOV "+quad.get(3)+", AX");
                     AX = quad.get(3);
                     break;
                 case "+":
                     if (!(AX.equals(quad.get(1)))) {
-                        System.out.println("\tSTORE " + AX);
-                        fwriter.write("\tSTORE " + AX+"\n");
-                        System.out.println("\tMOV AX, " + quad.get(1));
-                        fwriter.write("\tMOV AX, " + quad.get(1)+"\n");
+                        CodeAssembleur.add("\tSTORE " + AX);
+                        CodeAssembleur.add("\tMOV AX, " + quad.get(1));
                     }
-                    System.out.println("\tADD "+quad.get(2) );
-                    fwriter.write("\tADD " + quad.get(2) +"\n");
+                    CodeAssembleur.add("\tADD "+quad.get(2));
                     AX = quad.get(3);
                     break;
                 case "-":
                     if (!(AX.equals(quad.get(1)))) {
-                        System.out.println("\tSTORE " + AX);
-                        fwriter.write("\tSTORE " + AX+"\n");
-                        System.out.println("\tMOV AX, " + quad.get(1));
-                        fwriter.write("\tMOV AX, " + quad.get(1)+"\n");
+                        CodeAssembleur.add("\tSTORE " + AX);
+                        CodeAssembleur.add("\tMOV AX, " + quad.get(1));
                     }
-                    System.out.println("\tSUB "+quad.get(2) );
-                    fwriter.write("\tSUB " + quad.get(2) +"\n");
+                    CodeAssembleur.add("\tSUB "+quad.get(2));
                     AX = quad.get(3);
                     break;
                 case "*":
                     if (!(AX.equals(quad.get(1)))) {
-                        System.out.println("\tSTORE " + AX);
-                        fwriter.write("\tSTORE " + AX+"\n");
-                        System.out.println("\tMOV AX, " + quad.get(1));
-                        fwriter.write("\tMOV AX, " + quad.get(1)+"\n");
+                        CodeAssembleur.add("\tSTORE " + AX);
+                        CodeAssembleur.add("\tMOV AX, " + quad.get(1));
                     }
-                    System.out.println("\tMUL "+quad.get(2) );
-                    fwriter.write("\tMUL " + quad.get(2) +"\n");
+                    CodeAssembleur.add("\tMUL "+quad.get(2));
                     AX = quad.get(3);
                     break;
                 case "/":
                     if (!(AX.equals(quad.get(1)))) {
-                        System.out.println("\tSTORE " + AX);
-                        fwriter.write("\tSTORE " + AX+"\n");
-                        System.out.println("\tMOV AX, " + quad.get(1));
-                        fwriter.write("\tMOV AX, " + quad.get(1)+"\n");
+                        CodeAssembleur.add("\tSTORE " + AX);
+                        CodeAssembleur.add("\tMOV AX, " + quad.get(1));
                     }
-                    System.out.println("\tDIV "+quad.get(2) );
-                    fwriter.write("\tDIV " + quad.get(2) +"\n");
+                    CodeAssembleur.add("\tDIV "+quad.get(2));
                     AX = quad.get(3);
                     break;
                 case "BLE":
-                    System.out.println("\tMOV AX, "+quad.get(1));
-                    fwriter.write("\tMOV AX, " + quad.get(1) +"\n");
-                    System.out.println("\tCMP AX, "+quad.get(2));
-                    fwriter.write("\tCMP AX, " + quad.get(2) +"\n");
-                    System.out.println("\tJLE EtiqAdr"+quad.get(3));
-                    fwriter.write("\tJLE EtiqAdr" + quad.get(3) +"\n");
+                    CodeAssembleur.add("\tMOV AX, " + quad.get(1));
+                    CodeAssembleur.add("\tCMP AX, "+quad.get(2));
+                    CodeAssembleur.add("\tJLE EtiqAdr"+quad.get(3));
                     break;
                 case "BGE":
-                    System.out.println("\tMOV AX, "+quad.get(1));
-                    fwriter.write("\tMOV AX, " + quad.get(1) +"\n");
-                    System.out.println("\tCMP AX, "+quad.get(2));
-                    fwriter.write("\tCMP AX, " + quad.get(2) +"\n");
-                    System.out.println("\tJGE EtiqAdr"+quad.get(3));
-                    fwriter.write("\tJGE EtiqAdr" + quad.get(3) +"\n");
+                    CodeAssembleur.add("\tMOV AX, " + quad.get(1));
+                    CodeAssembleur.add("\tCMP AX, "+quad.get(2));
+                    CodeAssembleur.add("\tJGE EtiqAdr"+quad.get(3));
                     break;
                 case "BZ":
-                    System.out.println("\tMOV AX, "+quad.get(1));
-                    fwriter.write("\tMOV AX, " + quad.get(1) +"\n");
-                    System.out.println("\tCMP AX, 0");
-                    fwriter.write("\tCMP AX, 0 \n");
-                    System.out.println("\tJZ EtiqAdr"+quad.get(3));
-                    fwriter.write("\tJZ EtiqAdr" + quad.get(3) +"\n");
+                    CodeAssembleur.add("\tMOV AX, " + quad.get(1));
+                    CodeAssembleur.add("\tCMP AX, 0");
+                    CodeAssembleur.add("\tJZ EtiqAdr"+quad.get(3));
                     break;
                 case "READ":
-                    System.out.println("\tINPUT "+quad.get(1));
-                    fwriter.write("\tINPUT " + quad.get(1) +"\n");
+                    CodeAssembleur.add("\tINPUT "+quad.get(1));
                     break;
                 case "WRITE":
-                    System.out.println("\tOUTPUT "+quad.get(1));
-                    fwriter.write("\tOUTPUT " + quad.get(1) +"\n");
+                    CodeAssembleur.add("\tOUTPUT "+quad.get(1));
                     break;
                 case "END":
-                    System.out.println("END.");
-                    fwriter.write("END. \n");
+                    CodeAssembleur.add("END.");
                     break;
                 default:
                     // code block
             }
 
+        }
+        CodeAssembleur.add("********************************************************");
 
+        File CodeFile = new File("AssemblyCode.txt");
+        FileWriter fwriter = new FileWriter(CodeFile);
+
+        for (String inst : CodeAssembleur ) {
+            System.out.println(inst);
+            fwriter.write(inst+"\n");
         }
 
         fwriter.close();
